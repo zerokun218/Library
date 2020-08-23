@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load tz %}
+{% timezone 'Asia/Ho_Chi_Minh' %}
+{% block content %}
+  <div class="container">
+    {% if user.username == username %}
+      <h1 class='mt-5 mb-3 text-primary'><i>My Book List: </i></h1>
+    {% else %}
+    <h1 class='mt-5 mb-3 text-primary'><i>@{{username}}'s Book List: </i></h1>
+    {% endif %}
+    <div class="row row-cols-4">
+      {% for obj in object %}
+        <div class="col-3 border mr-5 ml-4 mb-3">
+
+          {% if not obj.is_charge %}
+            {% if user.profile_set.is_librarian or user.is_staff %}
+              <a href="{% url 'charge_book' obj.book.id user.username %}" class='btn btn-primary mb-2 mt-1'>Charge</a>
+            {% else %}
+              <div class='text-danger mb-4 mt-3'><span class='pr-2 pl-2 pt-2 pb-2 border border-danger'>Borrowing</span></div>
+            {% endif %}
+
+          {% else %}
+              <div class='text-success mb-4 mt-3'><span class='pr-2 pl-2 pt-2 pb-2 border border-success'>Returned</span></div>
+          {% endif %}
+
+              {% include "book/_book.html" with detail_book=obj.book %}
+              <small><u><b>borrow on:</b></u> {{ obj.borrow_time|date:'d-m-Y' }}</small>
+              <br>
+              <small><u><b>will be charged on:</b></u> {{ obj.charge_time|date:'d-m-Y' }}</small>
+              <br>
+                {% if obj.is_charge %}
+                  <small><b><i>Time Return:</i></b> {{obj.charge_time|date:"d-m-Y"}}</small>
+                {% endif %}
+        </div>
+      {% empty %}
+          <h5 class='text-danger'><i>No book in List</i></h5>
+      {% endfor %}
+    </div>
+  </div>
+
+
+{% endblock %}
+
+{% endtimezone%}

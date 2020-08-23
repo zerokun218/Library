@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% if user.profile_set.is_librarian or user.is_staff %}
+
+    <div class="container">
+      <div class="mt-5">
+        {% if announce %}
+          <h7 class='text-danger'><i>{{announce}}</i></h7>
+        {% endif %}
+        <form method="GET">
+          <div class="form-group">
+            <label for="exampleInputName"><b>Student:</b></label>
+            <input type="text" class="form-control" id="exampleInputName"  placeholder="Student's Name" name='qStudent'>
+            <small class="form-text text-muted">Enter the exact Student's name!</small>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputBook"><b>Book's title:</b></label>
+            <input type="text" class="form-control" id="exampleInputBook" placeholder="Book's Title" name='qBook'>
+            <small class="form-text text-muted">Enter the exact Book's title!</small>
+          </div>
+
+          <button type="submit" class = 'btn btn-primary'>Search</button>
+          </form>
+      </div>
+    </div>
+
+  {% endif %}
+
+{% endblock %}

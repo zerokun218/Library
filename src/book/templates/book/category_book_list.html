@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style media="screen">
+  .h3 {
+    text-align: center;
+  }
+  .h3:after {
+    margin: 5px;
+    content: '';
+    height: 3px;
+    width: 100px;
+    background-color: orange;
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  .h3:before {
+    margin: 5px;
+    display: inline-block;
+    content: '';
+    height: 3px;
+    width: 100px;
+    background-color: orange;
+    margin-right: 10px;
+
+  }
+</style>
+  <div class="container">
+    <div class="jumbotron mt-5">
+      <h1 class='text-primary h3'>{{title}} Books</h1>
+    </div>
+      {% if object %}
+        <div class="row row-cols-4">
+          {% for obj in object %}
+          <div class="col-3 border mr-5 ml-4 mb-3">
+                  {% include "book/_book.html" with detail_book=obj %}
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <h3>No {{title}} book is found</h3>
+      {% endif %}
+
+
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="container">
+    <h1 class='mt-5 mb-3 text-primary'><i>Delete:</i></h1>
+    <div class="card">
+      {% include "book/_book.html" with detail_book=object%}
+    </div>
+
+    <form class="" action="." method="post">
+      {% csrf_token %}
+      <button type="submit" name="button" class='btn btn-danger'>Delete</button>
+      <a href="{% url 'detail_book' object.id %}" class='btn btn-primary'>CANCEL</a>
+      <!-- <a href="{% url 'index' %}">CANCEL</a> -->
+    </form>
+  </div>
+
+
+{% endblock%}

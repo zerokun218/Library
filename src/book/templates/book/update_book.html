@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+  {% if user.profile_set.is_librarian or user.is_staff %}
+  <div class="container">
+    <h1 class='mt-5 mb-3 text-primary'><i>update {{ object.name }}</i></h1>
+
+    <form class="" method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <button type="submit" name="button" class='btn btn-primary'>Update</button>
+    </form>
+  </div>
+  {% else %}
+    <div class="jumbotron">
+      <h5 class='text-danger'>You need Admin's permission to Update</h5>
+    </div>
+  {% endif %}
+
+
+{% endblock %}

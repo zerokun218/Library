@@ -1,0 +1,34 @@
+  {% load tz %}
+  {% timezone "Asia/Ho_Chi_Minh" %}
+    <div class="">
+
+      <h5 class="text-primary"><a href="{% url 'detail_book' detail_book.id %}">Title: {{detail_book.name}}</a></h5>
+      <small><b>
+        {% for cate in detail_book.category.all %}
+        <span class='mr-2'><a href="{% url 'category_book_list' cate.name %}">{{cate.name}}</a></span>
+        {% endfor %}
+      </b></small>
+      <br>
+      <small><b>Author: {{detail_book.author}}</b></small><br>
+      {% if detail_book.publish_time %}
+        <small><b>Publish at: </b>{{detail_book.publish_time|date:"d-m-Y H:i" }}</small>
+      {% endif %}
+      <br>
+      {% if detail_book.update_time %}
+        <small><b>Lastest update: </b>{{ detail_book.update_time}}</small>
+      {% endif %}
+      <br>
+      {% if detail_book.image %}
+      <a href="{% url 'detail_book' detail_book.id %}">
+        <img src="{{detail_book.image.url}}" alt="" width = "200px" class="img-thumbnail">
+      </a>
+      {% else %}
+        <div style='width: 200px; height: 200px; background-color: lightgray;'>
+
+        </div>
+      {% endif %}
+
+      <p><small><b>Description: </b></small>{{detail_book.description|truncatewords:"2"}}</p>
+
+    </div>
+  {% endtimezone %}

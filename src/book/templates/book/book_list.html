@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style media="screen">
+  .h3 {
+    text-align: center;
+  }
+  .h3:after {
+    margin: 5px;
+    content: '';
+    height: 3px;
+    width: 100px;
+    background-color: orange;
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  .h3:before {
+    margin: 5px;
+    display: inline-block;
+    content: '';
+    height: 3px;
+    width: 100px;
+    background-color: orange;
+    margin-right: 10px;
+
+  }
+</style>
+<div class="container">
+
+
+  <div class="jumbotron mt-5 mb-5">
+      <h3 class='mb-3 h3 text-primary'>Book list</h3>
+    {% if user.is_staff or user.profile.is_librarian %}
+    <div class="mt-5">
+      <a href="{% url 'new_book' %}" class='btn btn-primary'>Create new book to library</a>
+    {% endif %}
+    {% if user.is_staff or user.profile.is_librarian %}
+      <a href="{% url 'new_category' %}" class='btn btn-primary'>Create new Category</a>
+    {% endif %}
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row row-cols-4">
+      {% for obj in book_list %}
+        <div class="col-3 border mr-5 ml-4 mb-3">
+                {% include "book/_book.html" with detail_book=obj %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="row justify-content-center mb-5">
+      {% for i in pages %}
+        {% if i != page_active %}
+          <a href="{% url 'book_page_list' i %}" class='border border-dark rounded text-info pr-1 pl-1 mr-2'>{{i}}</a>
+        {% else %}
+          <a href="{% url 'book_page_list' i %}" class='border border-danger rounded text-danger pr-1 pl-1 mr-2'>{{i}}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+
+</div>
+
+{% endblock %}

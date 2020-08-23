@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'book/test.css' %}">
+<link rel="stylesheet" href="{% static 'slideshow.css' %}">
+
+
+
+
+<div class="container">
+  <div class="jumbotron mt-5 lastest-list">
+    <h3 class='text-primary mb-4 h3' style='text-align: center; margin-top:-40px;'>Lastest Book</h3>
+    <div class="slideshow-container">
+      {% for obj in context_processors_book|slice:":6" %}
+        <div class="mySlides fade">
+          <div class="row row-cols-2">
+            <div class="col">
+              <div class="">
+              {% if obj.image %}
+                <a href="{% url 'detail_book' obj.id %}">
+                    <img src="{{obj.image.url}}" alt="" width='90%' height='400px'>
+                </a>
+                {% else %}
+                  <a href="{% url 'detail_book' obj.id %}">
+                    <div style='width: 90%; height:400px; background-color:white;'>
+
+                    </div>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="">
+                <h5><span class='text-primary'>Title: </span>{{obj.name}}</h5>
+                <p><span class='text-info'>Author: </span><i>{{obj.author}}</i></p>
+                {% if obj.amount %}
+                  <p><span class='text-info'>Available: </span>{{obj.amount}}</p>
+                {% else %}
+                  <p class='text-danger'>Run out of Book</p>
+                {% endif %}
+                  <p><span class='text-info'>Borrows Times: </span>{{obj.specifybook_set.all|length}}</p>
+                  <p><span class='text-info'>Comments: </span>{{obj.commentbook_set.all|length}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- <h1>Index page: Hello World!</h1> -->
+
+  <div class="jumbotron mt-5 lastest-list">
+    <h3 class='text-primary mb-4 h3' style='text-align: center; margin-top:-40px;'>Popular Book</h3>
+    <div class="row row-cols-4">
+      {% for obj in context_processors_popular_book|slice:":4" %}
+        <div class="col border-right border-left">
+          <p class='text-success'><i>Borrow times: </i>{{obj.specifybook_set.all|length}}</p>
+          {% include 'book/_book.html' with detail_book=obj %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- TESTING STATIC  -->
+
+  <!-- <img src="{% static 'book/1.PNG'%}" alt="asdsa">
+  <h6>test color</h6> -->
+</div>
+
+<script type="text/javascript" src="{% static 'myslideshow.js'%}">
+
+</script>
+
+{% endblock %}

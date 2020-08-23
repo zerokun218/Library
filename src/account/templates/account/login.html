@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container justify-content-center mt-4 pb-3">
+  <div class="col-6 border pb-3">
+    <h1 class="text-primary">Login</h1>
+    <form class=""  method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <button type="submit" name="button" class='btn btn-primary'>Login</button>
+      <a href="{% url 'signup' %}" class="btn btn-info">Sign up</a>
+    </form>
+  </div>
+
+
+</div>
+
+
+{% endblock%}

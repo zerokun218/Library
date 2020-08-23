@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+
+{% load tz %}
+
+{% block content %}
+{% timezone 'Asia/Ho_Chi_Minh' %}
+  <div class="container">
+
+    <h1 class='mt-5 text-primary'><i><u>Return:</u> {{object.name}}</i></h1>
+    <h5 class='pd-1'><i>@{{username}}</i></h5>
+    {% if object.image %}
+      <img src="{{object.image.url}}" alt="" width="400px">
+    {% endif %}
+    <br>
+    <small><b><i>Time Borrow:</i></b> {{spec_book.borrow_time|date:"d-m-Y"}}</small>
+    {% if charged %}
+      <form class="" method="post">
+        {% csrf_token %}
+        <button type="submit" name="button" class="btn btn-primary">Charge</button>
+      </form>
+    {% else %}
+    <br>
+    <small><b><i>Time Return:</i></b> {{spec_book.charge_time|date:"d-m-Y"}}</small>
+    {% endif %}
+
+  </div>
+
+{% endtimezone %}
+{% endblock %}

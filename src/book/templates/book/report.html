@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load tz %}
+{% block content %}
+{% timezone 'Asia/Ho_Chi_Minh' %}
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-1 border">
+        <h6>ID</h6>
+      </div>
+      <div class="col-2 border">
+        <h6>User</h6>
+      </div>
+      <div class="col-3 border">
+        <h6>Book</h6>
+      </div>
+      <div class="col-2 border">
+        <h6>Time Borrow</h6>
+      </div>
+      <div class="col-2 border">
+        <h6>Time Charge</h6>
+      </div>
+      <div class="col-1 border">
+        <h6>Returned</h6>
+      </div>
+      <div class="col-1 border">
+        <h6>Confirm Return</h6>
+      </div>
+    </div>
+    {% for obj in context_processors_specifybook %}
+    <div class="row">
+      <div class="col-1 border">
+        <p class='text-info'>{{obj.id}}</p>
+      </div>
+      <div class="col-2 border">
+        <a href='{% url "user_list" obj.user.username %}' class='text-info'>{{obj.user.username}}</a>
+      </div>
+      <div class="col-3 border">
+        <a href="{% url 'detail_book' obj.book.id %}"class='text-info'>{{obj.book.name}}</a>
+      </div>
+      <div class="col-2 border">
+        <p class='text-info'>{{obj.borrow_time|date:'d-m-Y'}}</p>
+      </div>
+      <div class="col-2 border">
+        <p class='text-info'>{{obj.charge_time|date:'d-m-Y'}}</p>
+      </div>
+      <div class="col-1 border">
+        {% if obj.is_charge %}
+        <p class='text-success'>Accepted</p>
+        {% else %}
+        <p class='text-danger'>Borrowing</p>
+        {% endif %}
+      </div>
+      <div class="col-1 border">
+          {% if not obj.is_charge %}
+          <div class="mt-2">
+            <a href="{% url 'charge_book' obj.book.id obj.user.username %}" class='btn-sm btn-primary'>Charge</a>
+          </div>
+          {% endif %}
+      </div>
+
+    </div>
+    {% empty %}
+      <h5 class='text-info'>No one borrow Book</h5>
+    {% endfor %}
+
+  </div>
+
+{% endtimezone %}
+{% endblock %}

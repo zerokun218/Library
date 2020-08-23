@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  {% if book_list %}
+  <div class="container">
+    <h1 class="text-primary">You are searching for "{{query}}"</h1>
+    <div class="row row-cols-4">
+      {% for obj in book_list %}
+        <div class="col-3 border mr-5 ml-4 mb-3">
+                {% include "book/_book.html" with detail_book=obj %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+    <h1>Nothing about {{query}}</h1>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container border mt-5 mb-5">
+
+  <h1 class='mt-5 mb-3 text-primary'>ADD BOOK "{{object.name}}" to <a href="{% url 'user_list' user.username %}">@{{user.username}}</a></h1>
+
+  {% include 'book/_book.html' with detail_book=object %}
+
+  <!-- <h1>--------</h1>
+  <h4 class='text-primary'>List of book in {{user.username|capfirst}}</h4>
+    {% if user.profile.books.all %}
+    <div class="row row-cols-4">
+      {% for book in user.specifybook_set.all %}
+          {% if book.is_charge == False %}
+              <div class="col-3 mr-5 ml-5 mt-3 mb-3 card">
+                  {% include "book/_book.html" with detail_book=book.book %}
+              </div>
+          {% endif %}
+      {% endfor %}
+    </div>
+    {% else %}
+    <h6>have no book in {{user.username}}</h6>
+    {% endif%}
+
+  <h1>---------</h1> -->
+  {% if object.amount %}
+  <p><i class='text-primary'>Available:</i> <span class='text-success'>{{object.amount}}</span></p>
+  {% else %}
+  <p class='text-danger'>Sorry! This book has run out</p>
+  {% endif %}
+
+    {% if object.amount and is_existed %}
+      <form class="" method="post">
+        {% csrf_token %}
+          <button type="submit" name="button" class='btn btn-primary'>ADD</button>
+      </form>
+    {% endif %}
+    <div class=" mt-2 mb-2">
+      <a href="{% url 'user_list' user.username %}" class='text-danger pr-1 pl-1'><i>Cancel</i></a>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+.lastest-list .h3:after {
+  margin: 5px;
+  content: '';
+  height: 3px;
+  width: 100px;
+  background-color: orange;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.lastest-list .h3:before {
+  margin: 5px;
+  display: inline-block;
+  content: '';
+  height: 3px;
+  width: 100px;
+  background-color: orange;
+  margin-right: 10px;
+
+}
+
+.mySlides {
+  display: block;
+}
+
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  height: 350px;
+  position: relative;
+  margin: auto;
+}
+
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 7s;
+  animation-name: fade;
+  animation-duration: 7s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: 1}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: 1}
+  to {opacity: 1}
+}
+
+.border-right {
+  border-width: 1px !important;
+  border-color: lightgray !important;
+}
+
+.border-left {
+  border-left: 1px solid lightgray !important;
+}
